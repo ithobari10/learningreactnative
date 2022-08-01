@@ -89,6 +89,7 @@ const Register = ({ navigation }) => {
                                 color="secondary"
                                 containerStyle={styles.buttonRegister}
                                 buttonStyle={styles.buttonRegister}
+                                onPress={() => navigation.navigate('Welcome')}
                             >Daftar
                             </Button>
                             <Text style={{ color: 'white', textAlignVertical: "center", textAlign: "center", marginTop: 15, marginBottom: 15 }} >- Atau -</Text>

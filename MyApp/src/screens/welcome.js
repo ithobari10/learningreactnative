@@ -1,112 +1,93 @@
-import React from 'react';
-import {
-    SafeAreaView,
-    ScrollView,
-    StatusBar,
-    StyleSheet,
-    Text,
-    useColorScheme,
-    View,
-    TextInput
-} from 'react-native';
-import { ThemeProvider, createTheme, Input, Button } from '@rneui/themed';
+import React, { useState } from 'react';
+import { View, ScrollView, Text, StyleSheet } from 'react-native';
+import { Avatar,Button } from '@rneui/themed';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-const theme = createTheme({
-    components: {
-        Button: {
-            raised: true,
-        },
-    },
-});
+type AvatarData = {
+    image_url: string;
+};
 
-const styles = StyleSheet.create({
-    top: {
-        flex: 1,
-        padding: 20,
-        margin: 10,
-        backgroundColor: "#06283D",
-        borderWidth: 0,
-        borderTopLeftRadius: 20,
-        borderTopRightRadius: 0,
-        borderBottomLeftRadius: 0,
-        borderBottomRightRadius: 20,
-        color: '#fff'
+const dataList: AvatarData[] = [
+    {
+        image_url: 'https://uifaces.co/our-content/donated/6MWH9Xi_.jpg',
     },
-    input: {
-        backgroundColor: "#fff",
-        borderWidth: 1,
-        padding: 5,
-        borderRadius: 8,
-        marginBottom: 10,
+    {
+        image_url: 'https://randomuser.me/api/portraits/men/36.jpg',
     },
-    buttonLogin: {
-        borderRadius: 8,
-        backgroundColor: "#1363DF",
+    {
+        image_url:
+            'https://cdn.pixabay.com/photo/2019/11/03/20/11/portrait-4599553__340.jpg',
     },
-    buttonRegister: {
-        borderRadius: 8,
-        backgroundColor: "#47B5FF",
+    {
+        image_url:
+            'https://cdn.pixabay.com/photo/2014/09/17/20/03/profile-449912__340.jpg',
     },
-});
+    {
+        image_url:
+            'https://cdn.pixabay.com/photo/2020/09/18/05/58/lights-5580916__340.jpg',
+    },
+    {
+        image_url:
+            'https://cdn.pixabay.com/photo/2016/11/21/12/42/beard-1845166_1280.jpg',
+    },
+];
 
-const Welcome = ({ navigation }) => {
-    const input = React.createRef();
+type AvatarComponentProps = {};
 
+Array.prototype.chunk = function (n) {
+    if (!this.length) {
+        return [];
+    }
+    return [this.slice(0, n)].concat(this.slice(n).chunk(n));
+};
+
+const Welcome: React.FunctionComponent<AvatarComponentProps> = ({navigation}) => {
     return (
-        <SafeAreaView >
-            <StatusBar />
-            <ScrollView contentInsetAdjustmentBehavior="automatic">
-                <ThemeProvider theme={theme}>
-                    <View>
-                        <View>
-                            <Text
-                                style={{
-                                    fontSize: 50,
-                                    fontWeight: 'bold',
-                                    color: '#1363DF',
-                                    textAlignVertical: "center",
-                                    textAlign: "center",
-                                    marginTop: 15,
-                                    marginBottom: 15
-                                }} >MyApp</Text>
-                        </View>
-                        <View style={styles.top}>
-                            <Text style={{ color: 'white', textAlignVertical: "center", textAlign: "center", marginTop: 0, marginBottom: 8 }} >Login</Text>
+        <>
+            <ScrollView>
+                <Text style={styles.subHeader}>Selamat datang :nama:</Text>
+                <View
+                    style={{
+                        flexDirection: 'row',
+                        justifyContent: 'space-around',
+                        marginBottom: 30,
+                    }}
+                >
+                    <Avatar
+                        size={64}
+                        rounded
+                        source={{ uri: 'https://randomuser.me/api/portraits/men/36.jpg' }}
+                    />
+                </View>
+                <View>
+                <Button
+                    color="secondary"
+                    containerStyle={styles.buttonLogin}
+                    buttonStyle={{
+                        backgroundColor: "#06283D",
+                    }}
+                    onPress={() => navigation.navigate('Login')}
+                >Logout
+                </Button>
 
-                            <TextInput
-                                style={styles.input}
-                                placeholder="Email"
-                                keyboardType="email-address"
-                            />
-                            <TextInput
-                                style={styles.input}
-                                placeholder="Password"
-                            />
-                            <Button
-                                color="secondary"
-                                containerStyle={styles.buttonLogin}
-                                buttonStyle={styles.buttonLogin}
-                            >Login
-                            </Button>
-                            <Text style={{ color: 'white', textAlignVertical: "center", textAlign: "center", marginTop: 15, marginBottom: 15 }} >- Atau -</Text>
+                </View>
 
-                            <Button
-                                color="secondary"
-                                containerStyle={styles.buttonRegister}
-                                buttonStyle={styles.buttonRegister}
-                                onPress={() => navigation.navigate('Register')}
-                            >Daftar
-                            </Button>
-                        </View>
 
-                    </View>
-                </ThemeProvider>
             </ScrollView>
-        </SafeAreaView>
+        </>
     );
 };
+
+const styles = StyleSheet.create({
+    subHeader: {
+        backgroundColor: "#2089dc",
+        color: "white",
+        textAlign: "center",
+        paddingVertical: 5,
+        marginBottom: 10
+    }
+})
 
 export default Welcome;

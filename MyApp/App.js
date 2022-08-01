@@ -23,6 +23,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import Login from './src/screens/login';
 import Register from './src/screens/register';
+import Welcome from './src/screens/welcome';
 
 function LoginScreen({ navigation }) {
     return (
@@ -36,6 +37,12 @@ function RegisterScreen({ navigation }) {
     );
 }
 
+function WelcomeScreen({ navigation }) {
+    return (
+        <Welcome navigation={ navigation }/>
+    );
+}
+
 const Stack = createNativeStackNavigator();
 
 const App: () => Node = () => {
@@ -44,6 +51,7 @@ const App: () => Node = () => {
       <Stack.Navigator initialRouteName="Login">
         <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Register" component={RegisterScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="Welcome" component={WelcomeScreen} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
   );
