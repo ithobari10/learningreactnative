@@ -1,10 +1,12 @@
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
+const bcrypt = require('bcrypt');
 const bodyParser = require('body-parser'); 
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const mongoose = require('mongoose');
+const User = require('./models/user');
 const cors = require('cors');
 const app = express();
 const port = 3000;
@@ -26,10 +28,36 @@ app.use(cors());
 
 const login = async(req, res, next) => {
     
-    console.log(req.body.test);
-    console.log('Got body:', req.body);
-    res.sendStatus(200);
-    // return res.send({data: []})
+    const checkuser = await User.find({email: req.body.email});
+
+    if (!checkuser.length) return res.send({data: {success: false}});
+
+    res.send({data: {success: true}});
+
+};
+
+const register = async(req, res, next) => {
+    try {
+
+        //validasi email
+        const checkuser = await User.find({email: req.body.email});
+        if (checkuser.length) return res.send({data: {success: false, message: "User dengan email "+ req.body.email+" sudah terdaftar "}});
+    
+        const userData = req.body;
+        const pass = userData.password;
+        delete userData.password;
+
+        const user = new User(userData);
+        user.setPassword(pass);
+        user.save(async (err, newUser) => {
+            if (err)
+              return new ErrorHandler(404, "Failed to create User", [], res);
+            res.status(200).json(newUser);
+        });
+
+      } catch (e) {
+        next(e);
+      }
 
 };
 
@@ -42,10 +70,7 @@ app.get('/user', (req, res) => {
 })
 
 app.post('/user/login', login)
-
-app.get('/user/register', (req, res) => {
-    res.send('Hello ini user')
-})
+app.post('/user/register', register)
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
