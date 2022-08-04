@@ -28,11 +28,15 @@ app.use(cors());
 
 const login = async(req, res, next) => {
     
-    const checkuser = await User.find({email: req.body.email});
+    User.findOne({email: req.body.email})
+    .then((user) => {
+        const password = (req.body.password) ? req.body.password : '';
+        if(!user || !user.validatePassword(password)) {
+            return res.send({data: {success: false, message: 'User tidak tersedia'}});
+        }
 
-    if (!checkuser.length) return res.send({data: {success: false}});
-
-    res.send({data: {success: true}});
+        return res.send({data: {success: true, user: user}});
+    }).catch(next);
 
 };
 
