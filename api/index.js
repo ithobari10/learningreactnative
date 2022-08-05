@@ -32,20 +32,19 @@ const login = async(req, res, next) => {
     .then((user) => {
         const password = (req.body.password) ? req.body.password : '';
         if(!user || !user.validatePassword(password)) {
-            return res.send({data: {success: false, message: 'User tidak tersedia'}});
+            return res.send({success: false, message: "User tidak tersedia "});
         }
 
-        return res.send({data: {success: true, user: user}});
+        return res.send({success: true, user: user, message: "Login berhasil "});
     }).catch(next);
 
 };
 
 const register = async(req, res, next) => {
     try {
-
         //validasi email
         const checkuser = await User.find({email: req.body.email});
-        if (checkuser.length) return res.send({data: {success: false, message: "User dengan email "+ req.body.email+" sudah terdaftar "}});
+        if (checkuser.length) return res.send({success: false, message: "User dengan email "+ req.body.email+" sudah terdaftar "});
     
         const userData = req.body;
         const pass = userData.password;
@@ -54,9 +53,15 @@ const register = async(req, res, next) => {
         const user = new User(userData);
         user.setPassword(pass);
         user.save(async (err, newUser) => {
-            if (err)
-              return new ErrorHandler(404, "Failed to create User", [], res);
-            res.status(200).json(newUser);
+            if (err){
+                return res.send({success: false, message: "Gagal menyimpan data user "});
+            }
+
+            res.status(200).json({
+                success: true, 
+                message: "Berhasil mendaftarkan user ",
+                newUser: newUser
+            });
         });
 
       } catch (e) {
@@ -66,11 +71,7 @@ const register = async(req, res, next) => {
 };
 
 app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
-
-app.get('/user', (req, res) => {
-  res.send('Hello ini user')
+  res.send('Api My App')
 })
 
 app.post('/user/login', login)

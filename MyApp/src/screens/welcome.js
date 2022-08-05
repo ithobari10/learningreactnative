@@ -47,7 +47,7 @@ const Welcome: React.FunctionComponent<AvatarComponentProps> = ({navigation}) =>
     return (
         <>
             <ScrollView>
-                <Text style={styles.subHeader}>Selamat datang :nama:</Text>
+                <Text style={styles.subHeader}>Selamat datang {email}</Text>
                 <View
                     style={{
                         flexDirection: 'row',

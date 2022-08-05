@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
     SafeAreaView,
     ScrollView,
@@ -10,6 +10,7 @@ import {
     TextInput
 } from 'react-native';
 import { ThemeProvider, createTheme, Input, Button } from '@rneui/themed';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -52,8 +53,45 @@ const styles = StyleSheet.create({
     },
 });
 
+const _doLogin = (email, password, navigation) => {
+    return fetch( APIService+'user/login', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-type': 'application/json',
+        },
+        params: {
+            email    : email,
+            password : password  
+        },
+        body: JSON.stringify({
+          email    : email,
+          password : password
+        })
+      })
+      .then(response => response.json())
+        .then(response => {
+
+            if(response.success){
+                global.Loggedin   = true;
+                global.email      = email;
+            
+                alert(response.message)
+                navigation.navigate('Welcome')
+            }else{
+                alert(response.message)
+            }
+
+        })
+      .catch((error) => {
+        console.warn(error);
+      });
+}
+
 const Login = ({ navigation }) => {
     const input = React.createRef();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
     return (
         <SafeAreaView >
@@ -80,16 +118,18 @@ const Login = ({ navigation }) => {
                                 style={styles.input}
                                 placeholder="Email"
                                 keyboardType="email-address"
+                                onChangeText={newEmail => setEmail(newEmail)}
                             />
                             <TextInput
                                 style={styles.input}
                                 placeholder="Password"
+                                onChangeText={newPassword => setPassword(newPassword)}
                             />
                             <Button
                                 color="secondary"
                                 containerStyle={styles.buttonLogin}
                                 buttonStyle={styles.buttonLogin}
-                                onPress={() => navigation.navigate('Welcome')}
+                                onPress={() => _doLogin(email, password, navigation)}
                             >Login
                             </Button>
                             <Text style={{ color: 'white', textAlignVertical: "center", textAlign: "center", marginTop: 15, marginBottom: 15 }} >- Atau -</Text>
