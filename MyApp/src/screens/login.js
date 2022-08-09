@@ -53,6 +53,38 @@ const styles = StyleSheet.create({
     },
 });
 
+
+const setItem = async (key, value) => {
+    try {
+        const setItem = await AsyncStorage.setItem(key, value);
+        return setItem;
+    } catch (error) {
+        console.error(error.message);
+    }
+    return
+}
+
+const removeItem = async (key) => {
+    try {
+        const setItem = await AsyncStorage.removeItem(key);
+        return setItem;
+    } catch (error) {
+        console.error(error.message);
+    }
+    return
+}
+
+const retrieveItem = async (key) => {
+    try {
+        const retrievedItem = await AsyncStorage.getItem(key);
+        return retrievedItem;
+    } catch (error) {
+        console.error(error.message);
+    }
+    return
+}
+
+
 const _doLogin = (email, password, navigation) => {
     return fetch( APIService+'user/login', {
         method: 'POST',
@@ -72,10 +104,11 @@ const _doLogin = (email, password, navigation) => {
       .then(response => response.json())
         .then(response => {
 
-            if(response.success){
-                global.Loggedin   = true;
-                global.email      = email;
-            
+            if(response.success){            
+                setItem('loggedIn', 'yes');
+                setItem('email', email);
+                setItem('token', 'yes');
+
                 alert(response.message)
                 navigation.navigate('Welcome')
             }else{
@@ -92,6 +125,14 @@ const Login = ({ navigation }) => {
     const input = React.createRef();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+    React.useEffect(() => {
+        retrieveItem('loggedIn').then((value) => {
+            if(value != null && value != ''){
+                navigation.navigate('Welcome')
+            }
+        });
+    });
 
     return (
         <SafeAreaView >

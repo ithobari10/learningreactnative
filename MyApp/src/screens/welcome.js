@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { View, ScrollView, Text, StyleSheet } from 'react-native';
 import { Avatar,Button } from '@rneui/themed';
 
@@ -44,6 +45,47 @@ Array.prototype.chunk = function (n) {
 };
 
 const Welcome: React.FunctionComponent<AvatarComponentProps> = ({navigation}) => {
+    const [loggedIn, setloggedIn] = useState('');
+    const [email, setEmail] = useState('');
+    const [token, setToken] = useState('');
+
+    const setItem = async (key, value) => {
+        try {
+            const setItem = await AsyncStorage.setItem(key, value);
+            return setItem;
+        } catch (error) {
+            console.error(error.message);
+        }
+        return
+    }
+
+    const removeItem = async (key) => {
+        try {
+            const setItem = await AsyncStorage.removeItem(key);
+            return setItem;
+        } catch (error) {
+            console.error(error.message);
+        }
+        return
+    }
+
+    const retrieveItem = async (key) => {
+        try {
+            const retrievedItem = await AsyncStorage.getItem(key);
+            return retrievedItem;
+        } catch (error) {
+            console.error(error.message);
+        }
+        return
+    }
+
+
+    React.useEffect(() => {
+        retrieveItem('email').then((value) => {
+            setEmail(value);
+        });
+    });
+
     return (
         <>
             <ScrollView>
@@ -68,7 +110,12 @@ const Welcome: React.FunctionComponent<AvatarComponentProps> = ({navigation}) =>
                     buttonStyle={{
                         backgroundColor: "#06283D",
                     }}
-                    onPress={() => navigation.navigate('Login')}
+                    onPress={() => {
+                        removeItem('loggedIn');
+                        removeItem('email');
+                        removeItem('token');
+                        navigation.navigate('Login');
+                    }}
                 >Logout
                 </Button>
 
