@@ -2,14 +2,16 @@ import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { Picker } from '@react-native-community/picker'
 
-const Select = ({label}) => {
+const Select = ({label, options}) => {
     return (
         <View>
             <Text style={styles.label}>{label}</Text>
             <View style={styles.input}>
                 <Picker >
-                    <Picker.Item label="A" value="A" />
-                    <Picker.Item label="V" value="V" />
+                    {options.forEach(element => {
+                        <Picker.Item label={{element}} value={{element}} />
+                        
+                    })}
                 </Picker>
             </View>
         </View>
