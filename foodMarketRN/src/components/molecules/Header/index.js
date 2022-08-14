@@ -1,16 +1,23 @@
 import React from 'react'
-import { StyleSheet, Text, TouchableOpacityBase, View } from 'react-native'
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { Iconback } from '../../../assets'
 
-const Header = (props) => {
+const Header = ({title, subTitle, onBack}) => {
     return (
         <View style={styles.container}>
-            <View style={styles.back}>
-                <Iconback />
-            </View>
+            {
+                onBack && (
+                    <TouchableOpacity activeOpacity={0.7} onPress={onBack}>
+                        <View style={styles.back}>
+                            <Iconback />
+                        </View>
+                    </TouchableOpacity>
+                )
+            }
+            
             <View>
-                <Text style={styles.title}>{props.title}</Text>
-                <Text style={styles.subtitle}>{props.subTitle}</Text>
+                <Text style={styles.title}>{title}</Text>
+                <Text style={styles.subtitle}>{subTitle}</Text>
             </View>
         </View>
     )
