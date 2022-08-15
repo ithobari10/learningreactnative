@@ -5,4 +5,14 @@ import FoodCard from "./FoodCard";
 import HomeTabSection from "./HomeTabSection";
 import HomeProfile from "./HomeProfile";
 import ItemListFood from "./ItemListFood";
-export {Header, BottomNavigator, Rating, FoodCard, HomeTabSection, HomeProfile, ItemListFood};
+import Counter from "./Counter";
+export {
+    Header, 
+    BottomNavigator, 
+    Rating, 
+    FoodCard, 
+    HomeTabSection, 
+    HomeProfile, 
+    ItemListFood,
+    Counter
+};

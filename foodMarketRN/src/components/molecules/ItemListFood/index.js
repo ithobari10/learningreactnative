@@ -1,18 +1,20 @@
-import { StyleSheet, Text, View, Image } from 'react-native'
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { FoodDummy1 } from '../../../assets'
 import Rating from '../Rating'
 
-const ItemListFood = ({image}) => {
+const ItemListFood = ({image, onPress}) => {
     return (
-        <View style={styles.container}>
-            <Image source={image} style={styles.image} />
-            <View style={{ flex: 1 }}>
-                <Text style={styles.title}>Soup Bumil</Text>
-                <Text style={styles.price}>IDR 289.000</Text>
+        <TouchableOpacity activeOpacity={0.7} onPress={onPress}>
+            <View style={styles.container}>
+                <Image source={image} style={styles.image} />
+                <View style={{ flex: 1 }}>
+                    <Text style={styles.title}>Soup Bumil</Text>
+                    <Text style={styles.price}>IDR 289.000</Text>
+                </View>
+                <Rating />
             </View>
-            <Rating />
-        </View>
+        </TouchableOpacity>
     )
 }
 

@@ -4,7 +4,7 @@ import { FoodDummy1, FoodDummy2, FoodDummy3 } from '../../assets'
 import { Gap } from '../../components/atoms'
 import { FoodCard, HomeProfile, HomeTabSection } from '../../components/molecules'
 
-const Home = () => {
+const Home = ({navigation}) => {
     return (
         <ScrollView>
             <View style={styles.page}>
@@ -21,7 +21,7 @@ const Home = () => {
                 </View>
 
                 <View style={styles.tabContainer}>
-                    <HomeTabSection />
+                    <HomeTabSection navigation={navigation} />
                 </View>
             </View>
         </ScrollView>

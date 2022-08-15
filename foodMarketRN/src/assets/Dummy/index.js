@@ -6,6 +6,7 @@ import FoodDummy4 from './food-4.png'
 import FoodDummy5 from './food-5.png'
 import FoodDummy6 from './food-6.png'
 import FoodDummy7 from './food-7.png'
+import FoodDummy8 from './food-8.png'
 export {
     ProfileDummy,
     FoodDummy1,
@@ -14,5 +15,6 @@ export {
     FoodDummy4,
     FoodDummy5,
     FoodDummy6,
-    FoodDummy7
+    FoodDummy7,
+    FoodDummy8,
 }
