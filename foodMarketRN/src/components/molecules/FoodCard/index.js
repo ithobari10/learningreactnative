@@ -1,22 +1,13 @@
-import { StyleSheet, Text, View, Image } from 'react-native'
 import React from 'react'
-import { FoodDummy1, IconStarOn,IconStarOff } from '../../../assets'
+import { Image, StyleSheet, Text, View } from 'react-native'
+import Rating from '../Rating'
 const FoodCard = ({image}) => {
   return (
     <View style={styles.container}>
         <Image source={image} style={styles.image}></Image>
         <View style={styles.content}>
             <Text style={styles.text}>Cherry text</Text>
-            <View style={styles.ratingContainer}>
-                <View style={styles.starContainer}>
-                    <IconStarOn />
-                    <IconStarOn />
-                    <IconStarOn />
-                    <IconStarOn />
-                    <IconStarOff />
-                </View>
-                <Text>4.5</Text>
-            </View>
+            <Rating />
         </View>
     </View>
   )
@@ -40,7 +31,5 @@ const styles = StyleSheet.create({
     image: {width:200, height:140, resizeMode: 'cover'},
     content: {padding:12},
     text: { fontSize: 16, fontFamily: 'Poppins-Regular', color: '#020202'},
-    ratingContainer: { flexDirection: 'row', alignItems: 'center'},
-    starContainer: {flexDirection: 'row', marginRight:5}
 
 })
