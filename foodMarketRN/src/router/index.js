@@ -1,7 +1,19 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { SplashScreen, SignIn, SignUp, SignUpAddress, SuccessSignUp, Home, Order, Profile, FoodDetail, OrderSummary } from '../pages';
+import { 
+    SplashScreen, 
+    SignIn, 
+    SignUp, 
+    SignUpAddress, 
+    SuccessSignUp, 
+    Home, 
+    Order, 
+    Profile, 
+    FoodDetail, 
+    OrderSummary, 
+    SuccessOrder 
+} from '../pages';
 import { BottomNavigator } from '../components';
 
 const Stack = createStackNavigator();
@@ -58,6 +70,11 @@ const Router = () => {
             <Stack.Screen 
                 name="OrderSummary"
                 component={OrderSummary}
+                options={{headerShown: false}}
+            />
+            <Stack.Screen 
+                name="SuccessOrder"
+                component={SuccessOrder}
                 options={{headerShown: false}}
             />
         </Stack.Navigator>
