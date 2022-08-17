@@ -29,12 +29,12 @@ const renderTabBar = props => (
 const newTaste = () => {
     const navigation = useNavigation();
     return (
-        <View style={{paddingTop: 8}}>
-            <ItemListFood image={FoodDummy1} onPress={() => navigation.navigate('FoodDetail')} />
-            <ItemListFood image={FoodDummy2} onPress={() => navigation.navigate('FoodDetail')} />
-            <ItemListFood image={FoodDummy3} onPress={() => navigation.navigate('FoodDetail')} />
-            <ItemListFood image={FoodDummy1} onPress={() => navigation.navigate('FoodDetail')} />
-            <ItemListFood image={FoodDummy2} onPress={() => navigation.navigate('FoodDetail')} />
+        <View style={{paddingTop: 8, paddingHorizontal: 24}}>
+            <ItemListFood rating={4} image={FoodDummy1} onPress={() => navigation.navigate('FoodDetail')} />
+            <ItemListFood rating={4} image={FoodDummy2} onPress={() => navigation.navigate('FoodDetail')} />
+            <ItemListFood rating={4} image={FoodDummy3} onPress={() => navigation.navigate('FoodDetail')} />
+            <ItemListFood rating={4} image={FoodDummy1} onPress={() => navigation.navigate('FoodDetail')} />
+            <ItemListFood rating={4} image={FoodDummy2} onPress={() => navigation.navigate('FoodDetail')} />
         </View>
     )
 };
@@ -42,12 +42,12 @@ const newTaste = () => {
 const popular = () => {
     const navigation = useNavigation();
     return (
-        <View style={{paddingTop: 8}}>
-            <ItemListFood image={FoodDummy3} onPress={() => navigation.navigate('FoodDetail')} />
-            <ItemListFood image={FoodDummy2} onPress={() => navigation.navigate('FoodDetail')} />
-            <ItemListFood image={FoodDummy1} onPress={() => navigation.navigate('FoodDetail')} />
-            <ItemListFood image={FoodDummy2} onPress={() => navigation.navigate('FoodDetail')} />
-            <ItemListFood image={FoodDummy1} onPress={() => navigation.navigate('FoodDetail')} />
+        <View style={{paddingTop: 8, paddingHorizontal: 24}}>
+            <ItemListFood rating={4} image={FoodDummy3} onPress={() => navigation.navigate('FoodDetail')} />
+            <ItemListFood rating={4} image={FoodDummy2} onPress={() => navigation.navigate('FoodDetail')} />
+            <ItemListFood rating={4} image={FoodDummy1} onPress={() => navigation.navigate('FoodDetail')} />
+            <ItemListFood rating={4} image={FoodDummy2} onPress={() => navigation.navigate('FoodDetail')} />
+            <ItemListFood rating={4} image={FoodDummy1} onPress={() => navigation.navigate('FoodDetail')} />
         </View>
     )
 };
@@ -55,12 +55,12 @@ const popular = () => {
 const Recommended = () => {
     const navigation = useNavigation();
     return (
-        <View style={{paddingTop: 8}}>
-            <ItemListFood image={FoodDummy2} onPress={() => navigation.navigate('FoodDetail')} />
-            <ItemListFood image={FoodDummy1} onPress={() => navigation.navigate('FoodDetail')} />
-            <ItemListFood image={FoodDummy3} onPress={() => navigation.navigate('FoodDetail')} />
-            <ItemListFood image={FoodDummy2} onPress={() => navigation.navigate('FoodDetail')} />
-            <ItemListFood image={FoodDummy1} onPress={() => navigation.navigate('FoodDetail')} />
+        <View style={{paddingTop: 8, paddingHorizontal: 24}}>
+            <ItemListFood rating={4} image={FoodDummy2} onPress={() => navigation.navigate('FoodDetail')} />
+            <ItemListFood rating={4} image={FoodDummy1} onPress={() => navigation.navigate('FoodDetail')} />
+            <ItemListFood rating={4} image={FoodDummy3} onPress={() => navigation.navigate('FoodDetail')} />
+            <ItemListFood rating={4} image={FoodDummy2} onPress={() => navigation.navigate('FoodDetail')} />
+            <ItemListFood rating={4} image={FoodDummy1} onPress={() => navigation.navigate('FoodDetail')} />
         </View>
     )
 };
