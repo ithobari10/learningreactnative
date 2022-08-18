@@ -1,14 +1,30 @@
 import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
+import { EmptyOrder, Gap, Header, OrderTabSection } from '../../components'
 
 const Order = () => {
-  return (
-    <View>
-      <Text>Order</Text>
-    </View>
-  )
+    const [isEmpty] = useState(false);
+    return (
+        <View style={styles.page}>
+            {isEmpty ? (
+                <EmptyOrder />
+                ) : (
+                    <View style={styles.content}>
+                        <Header title="Your Orders" subTitle="Wait for the best meal" />
+                        <View style={styles.tabContainer}>
+                            <OrderTabSection />
+                        </View>
+                    </View>
+                )
+            }
+        </View>
+    )
 }
 
 export default Order
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+    page : {flex: 1, backgroundColor: 'white'},
+    content: {flex: 1},
+    tabContainer: {flex: 1, marginTop: 24}
+})

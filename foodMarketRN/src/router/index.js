@@ -12,7 +12,8 @@ import {
     Profile, 
     FoodDetail, 
     OrderSummary, 
-    SuccessOrder 
+    SuccessOrder, 
+    OrderDetail
 } from '../pages';
 import { BottomNavigator } from '../components';
 
@@ -75,6 +76,11 @@ const Router = () => {
             <Stack.Screen 
                 name="SuccessOrder"
                 component={SuccessOrder}
+                options={{headerShown: false}}
+            />
+            <Stack.Screen 
+                name="OrderDetail"
+                component={OrderDetail}
                 options={{headerShown: false}}
             />
         </Stack.Navigator>

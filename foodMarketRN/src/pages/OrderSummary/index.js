@@ -1,11 +1,11 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import { FoodDummy1 } from '../../assets'
 import { Button, Header, ItemListFood, ItemValue } from '../../components'
 
 const OrderSummary = ({navigation}) => {
     return (
-        <View>
+        <ScrollView>
             <Header
                 title="Payment"
                 subTitle="You deserve better meal"
@@ -13,7 +13,7 @@ const OrderSummary = ({navigation}) => {
             />
             <View style={styles.content}>
                 <Text style={styles.label}>Item Ordered</Text>
-                <ItemListFood image={FoodDummy1} items={10}></ItemListFood>
+                <ItemListFood type='order-summary' price='289.000' name="Sop Bumil" image={FoodDummy1} items={10}></ItemListFood>
                 <Text>Details Transaction</Text>
                 <ItemValue label="Cherry Healthy" value="IDR 18.390.000" />
                 <ItemValue label="Driver" value="IDR 50.000" />
@@ -32,7 +32,7 @@ const OrderSummary = ({navigation}) => {
             <View style={styles.button}>
                 <Button text="Checkout Now" onPress={() => {navigation.replace('SuccessOrder')}}/>
             </View>
-        </View>
+        </ScrollView>
     )
 }
 

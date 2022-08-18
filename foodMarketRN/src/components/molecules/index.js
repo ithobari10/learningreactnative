@@ -7,6 +7,8 @@ import HomeProfile from "./HomeProfile";
 import ItemListFood from "./ItemListFood";
 import Counter from "./Counter";
 import ItemValue from "./ItemValue";
+import EmptyOrder from "./EmptyOrder";
+import OrderTabSection from "./OrderTabSection";
 export {
     Header, 
     BottomNavigator, 
@@ -16,5 +18,7 @@ export {
     HomeProfile, 
     ItemListFood,
     Counter,
-    ItemValue
+    ItemValue,
+    EmptyOrder,
+    OrderTabSection,
 };
