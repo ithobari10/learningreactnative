@@ -1,8 +1,10 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React from 'react'
-import { Header, TextInput, Button, Gap } from '../../components'
-
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React from 'react';
+import { Header, TextInput, Button, Gap } from '../../components';
+import {useSelector} from 'react-redux';
 const SignUp = ({navigation}) => {
+    const globalState = useSelector(state => state.globalReducer);
+    
     return (
         <View style={styles.page}>
             <Header title="Sign Up" subTitle="Register and eat" onBack={() => {navigation.navigate('SignIn');}}  />
@@ -17,7 +19,7 @@ const SignUp = ({navigation}) => {
                         </TouchableOpacity>
                     </View>
                 </View>
-
+                <Text>{`Status error : ${globalState.isError} ${globalState.message} `}</Text>
                 <TextInput label="Full Name" placeholder="Type your Fullname" />
                 <Gap height={16} />
                 <TextInput label="Email Address" placeholder="Input Email Address" />
