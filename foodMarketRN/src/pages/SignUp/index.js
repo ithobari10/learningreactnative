@@ -1,34 +1,59 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import { Header, TextInput, Button, Gap } from '../../components';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
+import { useForm } from '../../utils';
+
 const SignUp = ({navigation}) => {
-    const globalState = useSelector(state => state.globalReducer);
+    const [form, setForm] = useForm({
+        name: '',
+        email: '',
+        password: '',
+    });
+
+    const dispatch = useDispatch();
+
+    const onSubmit = () => {
+        dispatch({
+            type : 'SET_REGISTER',
+            value: form
+        });
+
+        navigation.navigate('SignUpAddress');
+
+    }
     
     return (
-        <View style={styles.page}>
-            <Header title="Sign Up" subTitle="Register and eat" onBack={() => {navigation.navigate('SignIn');}}  />
+        <ScrollView contentContainerStyle={{flexGrow:1}}>
+            <View style={styles.page}>
+                <Header title="Sign Up" subTitle="Register and eat" onBack={() => {navigation.navigate('SignIn');}}  />
 
-            <View style={styles.container}>
-                <View style={styles.photo}>
-                    <View style={styles.borderPhoto}>
-                        <TouchableOpacity activeOpacity={0.7} >
-                        <View style={styles.photoContainer}>
-                            <Text style={styles.addPhoto}>Add Photo</Text>
+                <View style={styles.container}>
+                    <View style={styles.photo}>
+                        <View style={styles.borderPhoto}>
+                            <TouchableOpacity activeOpacity={0.7} >
+                            <View style={styles.photoContainer}>
+                                <Text style={styles.addPhoto}>Add Photo</Text>
+                            </View>
+                            </TouchableOpacity>
                         </View>
-                        </TouchableOpacity>
                     </View>
+                    {/* <Text>{`Status error : ${globalState.isError} ${globalState.message} `}</Text> */}
+                    <TextInput label="Full Name" placeholder="Type your Fullname" value={form.name} onChangeText={(value) => setForm('name', value)} />
+                    <Gap height={16} />
+                    <TextInput label="Email Address" placeholder="Input Email Address" value={form.email} onChangeText={(value) => setForm('email', value)} />
+                    <Gap height={16} />
+                    <TextInput label="Password" placeholder="Input Password" value={form.password} onChangeText={(value) => setForm('password', value)} secureTextEntry />
+                    <Gap height={24} />
+                    <Button 
+                        text="Continue" 
+                        onPress={() => { 
+                            onSubmit();
+
+                        }} />
                 </View>
-                <Text>{`Status error : ${globalState.isError} ${globalState.message} `}</Text>
-                <TextInput label="Full Name" placeholder="Type your Fullname" />
-                <Gap height={16} />
-                <TextInput label="Email Address" placeholder="Input Email Address" />
-                <Gap height={16} />
-                <TextInput label="Password" placeholder="Input Password"/>
-                <Gap height={24} />
-                <Button text="Continue" onPress={() => { navigation.navigate('SignUpAddress')}} />
             </View>
-        </View>
+        </ScrollView>
     )
 }
 
