@@ -3,6 +3,7 @@ import React from 'react'
 import { Header, TextInput, Select, Button, Gap } from '../../components'
 import { useDispatch, useSelector } from 'react-redux'
 import { useForm } from '../../utils'
+import Axios from 'axios';
 
 const SignUpAddress = ({navigation}) => {
     const [form, setForm] = useForm({
@@ -16,16 +17,18 @@ const SignUpAddress = ({navigation}) => {
     const registerReducer = useSelector( state => state.registerReducer);
 
     const onSubmit = () => {
-        console.log(form);
-
         const data = {
             ...form,
             ...registerReducer
         };
         
-        console.log('data dari redux');
-        console.log(data);
-        // navigation.replace('SuccessSignUp');
+        Axios.post('http://192.168.1.3:8000/api/register', data)
+        .then(res => {
+            console.log(res);
+        })
+        .catch(err => {
+            console.log(err);
+        });
     }
 
     return (

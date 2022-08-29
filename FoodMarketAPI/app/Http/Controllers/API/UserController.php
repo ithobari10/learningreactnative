@@ -70,6 +70,7 @@ class UserController extends Controller
      */
     public function register(Request $request)
     {
+        // echo 'test';die;
         try {
             $request->validate([
                 'name' => ['required', 'string', 'max:255'],
