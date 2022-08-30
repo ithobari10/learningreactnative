@@ -1,15 +1,17 @@
-import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import React from 'react';
-import { Header, TextInput, Button, Gap } from '../../components';
-import {useSelector, useDispatch} from 'react-redux';
-import { useForm } from '../../utils';
-
+import React, { useState } from 'react';
+import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { launchImageLibrary } from 'react-native-image-picker';
+import { useDispatch } from 'react-redux';
+import { Button, Gap, Header, TextInput } from '../../components';
+import { showMessage, useForm } from '../../utils';
 const SignUp = ({navigation}) => {
     const [form, setForm] = useForm({
         name: '',
         email: '',
         password: '',
     });
+
+    const [photo, setPhoto] = useState('');
 
     const dispatch = useDispatch();
 
@@ -22,6 +24,31 @@ const SignUp = ({navigation}) => {
         navigation.navigate('SignUpAddress');
 
     }
+
+    const addPhoto = () => {
+        launchImageLibrary({
+            quality:0.5,
+            maxWidth:200,
+            maxHeight:200
+        }, (response)=> {
+
+            if(response.didCancel || response.error){
+                showMessage('anda tidak memilih foto');
+            }else if(response.customButton){
+                console.log('response.custombutton');
+            }else{
+                const contentImage = response.assets[0];
+                const source = {uri : contentImage.uri};
+                const dataImage = {
+                    uri : contentImage.uri,
+                    type : contentImage.type,
+                    name : contentImage.fileName,
+                };
+
+                setPhoto(source);
+            }
+        })
+    } 
     
     return (
         <ScrollView contentContainerStyle={{flexGrow:1}}>
@@ -30,15 +57,20 @@ const SignUp = ({navigation}) => {
 
                 <View style={styles.container}>
                     <View style={styles.photo}>
-                        <View style={styles.borderPhoto}>
-                            <TouchableOpacity activeOpacity={0.7} >
-                            <View style={styles.photoContainer}>
-                                <Text style={styles.addPhoto}>Add Photo</Text>
+                        <TouchableOpacity activeOpacity={0.7} onPress={addPhoto}>
+                            <View style={styles.borderPhoto}>
+                                <TouchableOpacity activeOpacity={0.7} onPress={addPhoto}>
+                                {photo ? (
+                                    <Image source={photo} style={styles.photoContainer} />
+                                ) : (
+                                    <View style={styles.photoContainer}>
+                                        <Text style={styles.addPhoto}>Add Photo</Text>
+                                    </View>
+                                )}
+                                </TouchableOpacity>
                             </View>
-                            </TouchableOpacity>
-                        </View>
+                        </TouchableOpacity>
                     </View>
-                    {/* <Text>{`Status error : ${globalState.isError} ${globalState.message} `}</Text> */}
                     <TextInput label="Full Name" placeholder="Type your Fullname" value={form.name} onChangeText={(value) => setForm('name', value)} />
                     <Gap height={16} />
                     <TextInput label="Email Address" placeholder="Input Email Address" value={form.email} onChangeText={(value) => setForm('email', value)} />
@@ -84,7 +116,8 @@ const styles = StyleSheet.create({
         height: 90, 
         borderRadius: 90, 
         backgroundColor: '#F0F0F0', 
-        padding: 24
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     addPhoto: {
         fontSize: 14, 

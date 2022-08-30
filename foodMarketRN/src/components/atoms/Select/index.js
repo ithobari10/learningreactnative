@@ -11,15 +11,14 @@ const Select = ({ label, value, options, onSelectChange }) => {
         <View>
             <Text style={styles.label}>{label}</Text>
             <View style={styles.input}>
-                <Picker 
-                selectedValue={value}
-                // style={{height: 50, width: 100}}
-                onValueChange={(itemValue) => {setSelected(itemValue); onSelectChange(itemValue);} }>
-                    <Picker.Item label="Bandung" value="Bandung" />
-                    <Picker.Item label="Jakarta" value="Jakarta" />
-                    <Picker.Item label="Semarang" value="Semarang" />
-                    <Picker.Item label="Surabaya" value="Surabaya" />
-
+                <Picker
+                    selectedValue={value}
+                    onValueChange={(itemValue) => { setSelected(itemValue); onSelectChange(itemValue); }}>
+                    {
+                        options.map((item, key) => {
+                            return <Picker.Item label={item} value={item} />;
+                        })
+                    }
 
                 </Picker>
             </View>
