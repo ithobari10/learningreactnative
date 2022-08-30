@@ -34,8 +34,6 @@ const SignUp = ({navigation}) => {
 
             if(response.didCancel || response.error){
                 showMessage('anda tidak memilih foto');
-            }else if(response.customButton){
-                console.log('response.custombutton');
             }else{
                 const contentImage = response.assets[0];
                 const source = {uri : contentImage.uri};
@@ -46,6 +44,8 @@ const SignUp = ({navigation}) => {
                 };
 
                 setPhoto(source);
+                dispatch({type: 'SET_PHOTO', value: dataImage});
+                dispatch({type: 'SET_UPLOADED_STATUS', value: true});
             }
         })
     } 

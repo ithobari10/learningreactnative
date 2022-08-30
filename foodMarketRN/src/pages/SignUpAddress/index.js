@@ -3,8 +3,8 @@ import React from 'react'
 import { ScrollView, StyleSheet, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { Button, Gap, Header, Select, TextInput } from '../../components'
-import { useForm } from '../../utils'
-import { showMessage, hideMessage } from 'react-native-flash-message'
+import { useForm, showMessage } from '../../utils'
+import { hideMessage } from 'react-native-flash-message'
 
 const SignUpAddress = ({navigation}) => {
     const [form, setForm] = useForm({
@@ -15,7 +15,7 @@ const SignUpAddress = ({navigation}) => {
     });
 
     const dispatch = useDispatch();
-    const registerReducer = useSelector( state => state.registerReducer);
+    const {registerReducer, photoReducer} = useSelector( state => state);
 
     const onSubmit = () => {
 
@@ -28,6 +28,26 @@ const SignUpAddress = ({navigation}) => {
         
         Axios.post('http://192.168.8.129:8000/api/register', data)
         .then(res => {
+            if(photoReducer.isUploadPhoto){
+                const photoForUpload = new FormData();
+                photoForUpload.append('file', photoReducer);
+    
+                Axios.post('http://192.168.8.129:8000/api/user/photo', 
+                photoForUpload, 
+                {
+                    headers: {
+                        'Authorization': `${res.data.data.token_type} ${res.data.data.access_token}`,
+                        'Content-Type': 'multipart/form-data',
+                    }
+                })
+                .then(resUpload => {
+                    console.log('success upload', resUpload);
+                })
+                .catch(err => {
+                    showMessage('upload foto tidak berhasil');
+                });
+            }
+
             dispatch({type: 'SET_LOADING', value: false});
 
             showMessage('Register Success', 'success');
@@ -36,16 +56,8 @@ const SignUpAddress = ({navigation}) => {
         .catch(err => {
             dispatch({type: 'SET_LOADING', value: false});
 
-            showToast(err?.response?.data?.message);
+            showMessage(err?.response?.data?.message);
         });
-    }
-
-    const showToast = (message, type) => {
-        showMessage({
-            message,
-            type: type === 'success' ? 'success' : 'danger',
-            backgroundColor: type === 'success' ? '#1ABC9C' : '#D9435E'
-        })
     }
 
     return (
