@@ -18,6 +18,9 @@ const SignUpAddress = ({navigation}) => {
     const registerReducer = useSelector( state => state.registerReducer);
 
     const onSubmit = () => {
+
+        dispatch({type: 'SET_LOADING', value: true});
+
         const data = {
             ...form,
             ...registerReducer
@@ -25,10 +28,14 @@ const SignUpAddress = ({navigation}) => {
         
         Axios.post('http://192.168.8.129:8000/api/register', data)
         .then(res => {
+            dispatch({type: 'SET_LOADING', value: false});
+
             showMessage('Register Success', 'success');
             navigation.replace('SuccessSignUp');
         })
         .catch(err => {
+            dispatch({type: 'SET_LOADING', value: false});
+
             showToast(err?.response?.data?.message);
         });
     }
