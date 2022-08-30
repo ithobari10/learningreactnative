@@ -1,9 +1,10 @@
-import { ScrollView, StyleSheet, Text, View } from 'react-native'
+import Axios from 'axios'
 import React from 'react'
-import { Header, TextInput, Select, Button, Gap } from '../../components'
+import { ScrollView, StyleSheet, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
+import { Button, Gap, Header, Select, TextInput } from '../../components'
 import { useForm } from '../../utils'
-import Axios from 'axios';
+import { showMessage, hideMessage } from 'react-native-flash-message'
 
 const SignUpAddress = ({navigation}) => {
     const [form, setForm] = useForm({
@@ -22,13 +23,22 @@ const SignUpAddress = ({navigation}) => {
             ...registerReducer
         };
         
-        Axios.post('http://192.168.1.3:8000/api/register', data)
+        Axios.post('http://192.168.8.129:8000/api/register', data)
         .then(res => {
-            console.log(res);
+            showMessage('Register Success', 'success');
+            navigation.replace('SuccessSignUp');
         })
         .catch(err => {
-            console.log(err);
+            showToast(err?.response?.data?.message);
         });
+    }
+
+    const showToast = (message, type) => {
+        showMessage({
+            message,
+            type: type === 'success' ? 'success' : 'danger',
+            backgroundColor: type === 'success' ? '#1ABC9C' : '#D9435E'
+        })
     }
 
     return (
